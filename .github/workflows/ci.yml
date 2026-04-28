@@ -34,5 +34,5 @@ jobs:
       working-directory: ./server
 
     - name: Trigger Render Deploy
-      if: github.ref == 'refs/heads/main' # 🎯 Only deploy from the main branch
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
