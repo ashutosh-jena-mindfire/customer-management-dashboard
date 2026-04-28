@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "concurrently \"node src/server.js\" \"cd ../client && npm run dev\""
+    "start": "concurrently \"node src/server.ts\" \"cd ../client && npm run dev\"",
+    "build": "tsc",
+    "local": "tsx --watch src/server.ts"
   },
   "author": "Ashutosh Jena",
   "license": "ISC",
@@ -18,5 +21,15 @@
     "swagger-ui-express": "^5.0.1",
     "uuid": "^14.0.0",
     "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^25.6.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   }
 }
