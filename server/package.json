@@ -1,0 +1,22 @@
+{
+  "name": "customer-management-dashboard-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"node src/server.js\" \"cd ../client && npm run dev\""
+  },
+  "author": "Ashutosh Jena",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "concurrently": "^9.2.1",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "morgan": "^1.10.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^14.0.0",
+    "winston": "^3.19.0"
+  }
+}
