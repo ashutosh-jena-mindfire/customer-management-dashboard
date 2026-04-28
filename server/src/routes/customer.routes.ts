@@ -1,7 +1,7 @@
 import express from 'express';
 import { createCustomer, getCustomers, deleteCustomer } from '../controllers/customer.controller.js';
 import { validate } from '../middlewares/validation.middleware.js';
-import { validateCreateCustomer } from '../validations/customer.validation.ts';
+import { validateCreateCustomer } from '../validations/customer.validation';
 
 const router = express.Router();
 

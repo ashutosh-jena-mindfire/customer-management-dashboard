@@ -1,5 +1,5 @@
-import * as service from '../services/customer.service.ts';
-import * as response from '../utils/response.ts';
+import * as service from '../services/customer.service';
+import * as response from '../utils/response';
 import type { Request, Response, NextFunction } from 'express';
 
 export const createCustomer = (req: Request, res: Response, next: NextFunction) => {
