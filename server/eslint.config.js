@@ -1,22 +1,33 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
+  // 1. Keep your output ignoring isolated
   globalIgnores(['dist']),
+
+  // 2. Expand standard TypeScript configs
+  ...tseslint.configs.recommended,
+
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.ts'],
+
+    // 3. Load basic recommended JS rules
     extends: [
       js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
     ],
+
+    // 4. Force Node environment variables instead of standard browser DOMs
     languageOptions: {
-      globals: globals.browser,
+      globals: globals.node,
+      parser: tseslint.parser,
+    },
+
+    // 5. Add custom server rules
+    rules: {
+      'no-console': 'off', // Keeps standard console.log visible for servers
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },
-])
+]);
