@@ -4,11 +4,11 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'server/**' # 🎯 Only trigger if files in the server folder change
+      - 'server/**'
   pull_request:
     branches: [ master ]
     paths:
-      - 'server/**' # 🎯 Only trigger if PR modifies the server folder
+      - 'server/**'
 
 jobs:
   build:
@@ -23,12 +23,16 @@ jobs:
       with:
         node-version: '24'
         cache: 'npm'
-        cache-dependency-path: server/package.json # 🎯 Tells GitHub where to look for package locks
+        cache-dependency-path: server/package.json
 
     - name: Install dependencies
       run: npm install
-      working-directory: ./server # 🎯 Forces commands to run inside the server folder
+      working-directory: ./server
 
-    - name: Run Build (Type Check & Bundle)
+    - name: Run Build
       run: npm run build
       working-directory: ./server
+
+    - name: Trigger Render Deploy
+      if: github.ref == 'refs/heads/main' # 🎯 Only deploy from the main branch
+      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
