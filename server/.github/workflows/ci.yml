@@ -3,8 +3,12 @@ name: Node.js CI
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'server/**' # 🎯 Only trigger if files in the server folder change
   pull_request:
     branches: [ master ]
+    paths:
+      - 'server/**' # 🎯 Only trigger if PR modifies the server folder
 
 jobs:
   build:
@@ -17,15 +21,14 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '24'
         cache: 'npm'
-        # Point to your server directory if using a monorepo
-        cache-dependency-path: server/package.json
+        cache-dependency-path: server/package.json # 🎯 Tells GitHub where to look for package locks
 
     - name: Install dependencies
       run: npm install
-      working-directory: ./server
+      working-directory: ./server # 🎯 Forces commands to run inside the server folder
 
-    - name: Run Build (Type Check)
+    - name: Run Build (Type Check & Bundle)
       run: npm run build
       working-directory: ./server
