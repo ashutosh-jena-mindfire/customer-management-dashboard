@@ -25,10 +25,10 @@ jobs:
         cache: 'npm'
         cache-dependency-path: server/package.json
 
-    - name: Install dependencies
+    - name: Install server dependencies
       run: npm install
       working-directory: ./server
-    - name: Install dependencies
+    - name: Install shared dependencies
       run: npm install
       working-directory: ./shared
       
