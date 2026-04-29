@@ -24,5 +24,5 @@ export const PORT: string = env.PORT || '5000';
 
 export const ALLOWED_ORIGINS: string[] = [
   'http://localhost:5173',
-  'https://customer-management-dashboard-opal.vercel.app'
+  'https://customer-management-dashboard-76e5cqf93-ashutosh-jenas-projects.vercel.app'
 ];
