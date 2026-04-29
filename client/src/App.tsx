@@ -16,7 +16,12 @@ function App() {
   // 💡 Centered loading state
   if (isLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+      <Box sx={{ 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '50vh',
+        }}>
         <CircularProgress />
       </Box>
     );
@@ -35,7 +40,7 @@ function App() {
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom fontWeight="bold">
+      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
         Customer Dashboard
       </Typography>
 

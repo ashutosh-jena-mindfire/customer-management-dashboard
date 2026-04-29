@@ -4,20 +4,8 @@ import {
   createCustomer,
   deleteCustomer
 } from '../services/customer.api.js';
-
-// Added Interfaces for strict safety
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-}
-
-interface CreateCustomerData {
-  name: string;
-  email: string;
-  phone: string;
-}
+import type { Customer } from '../../../types/customer.types';
+import type { CreateCustomerData } from '../../../types/create-customer-data.types';
 
 export const useCustomers = () => {
   const queryClient = useQueryClient();
