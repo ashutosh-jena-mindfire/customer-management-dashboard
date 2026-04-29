@@ -1,45 +1,24 @@
 import ApiError from '../../utils/ApiError';
+import { customerSchema } from '@shared/schemas/customer.schema';
 import type { Request, Response, NextFunction } from 'express';
 
 const BAD_REQUEST_STATUS = 400;
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MIN_PHONE_DIGITS = 10;
-const MAX_PHONE_DIGITS = 13;
-
-const isPresentString = (value: unknown): value is string =>
-  typeof value === 'string' && value.trim().length > 0;
-
-const isValidPhone = (phone: string): boolean => {
-  const normalizedPhone = phone.replace(/[\s()+-]/g, '');
-
-  return (
-    /^\d+$/.test(normalizedPhone) &&
-    normalizedPhone.length >= MIN_PHONE_DIGITS &&
-    normalizedPhone.length <= MAX_PHONE_DIGITS
-  );
-};
+const REQUIRED_FIELD_MESSAGES = new Set(['Name is required', 'Email is required', 'Phone is required']);
 
 export const validateCreateCustomer = (req: Request, _res: Response, next: NextFunction) => {
-  const { name, email, phone } = req.body;
+  const validationResult = customerSchema.safeParse(req.body);
 
-  if (!isPresentString(name) || !isPresentString(email) || !isPresentString(phone)) {
-    return next(new ApiError(BAD_REQUEST_STATUS, 'All fields are required'));
+  if (!validationResult.success) {
+    const message = validationResult.error.issues[0]?.message;
+
+    return next(
+      new ApiError(
+        BAD_REQUEST_STATUS,
+        message && REQUIRED_FIELD_MESSAGES.has(message) ? 'All fields are required' : message || 'Invalid customer data'
+      )
+    );
   }
 
-  if (!EMAIL_REGEX.test(email.trim())) {
-    return next(new ApiError(BAD_REQUEST_STATUS, 'Email must be valid'));
-  }
-
-  if (!isValidPhone(phone)) {
-    return next(new ApiError(BAD_REQUEST_STATUS, 'Phone number must be valid'));
-  }
-
-  req.body = {
-    ...req.body,
-    name: name.trim(),
-    email: email.trim().toLowerCase(),
-    phone: phone.trim()
-  };
-
+  req.body = validationResult.data;
   next();
 };

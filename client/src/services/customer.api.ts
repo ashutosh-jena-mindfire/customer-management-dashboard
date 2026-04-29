@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { CreateCustomerData } from '../../../types/create-customer-data.types';
+import type { CustomerInput } from '@shared/schemas/customer.schema';
 
 const API = axios.create({
   baseURL: 'https://customer-api-jcx2.onrender.com/api/v1',
@@ -10,7 +10,7 @@ export const getCustomers = async () => {
   return res.data.data;
 };
 
-export const createCustomer = async (data: CreateCustomerData) => {
+export const createCustomer = async (data: CustomerInput) => {
   const res = await API.post('/customers', data);
   return res.data.data;
 };

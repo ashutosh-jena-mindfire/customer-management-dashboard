@@ -23,9 +23,10 @@ interface Customer {
 interface CustomerTableProps {
   customers: Customer[];
   onDelete: (id: string) => void;
+  deleting: boolean;
 }
 
-const CustomerTable = ({ customers, onDelete }: CustomerTableProps) => {
+const CustomerTable = ({ customers, onDelete, deleting }: CustomerTableProps) => {
   if (!customers.length) {
     return <Typography sx={{ p: 2 }}>No customers found</Typography>;
   }
@@ -51,7 +52,12 @@ const CustomerTable = ({ customers, onDelete }: CustomerTableProps) => {
               <TableCell>
                 <IconButton
                   color="error"
-                  onClick={() => onDelete(c.id)}
+                  disabled={deleting}
+                  onClick={() => {
+                    if (window.confirm('Are you sure you want to delete?')) {
+                      onDelete(c.id);
+                    }
+                  }}
                 >
                   <DeleteIcon />
                 </IconButton>

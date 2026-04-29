@@ -11,19 +11,10 @@ import { ALLOWED_ORIGINS } from './config';
 
 const app = express();
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
-        callback(null, true);
-        return;
-      }
-
-      callback(new Error('Not allowed by CORS'));
-    },
-    credentials: true
-  })
-);
+app.use(cors({
+  origin: ALLOWED_ORIGINS,
+  credentials: true
+}));
 app.use(express.json());
 app.use(helmet());
 app.use(limiter);
