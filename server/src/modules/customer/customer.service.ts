@@ -1,8 +1,8 @@
-import {create, findAll, remove} from '../repositories/customer.repository';
+import {create, findAll, remove} from './customer.repository';
 import { v4 as uuidv4 } from 'uuid';
-import ApiError from '../utils/ApiError.js';
-import { CreateCustomerData } from '../../../types/create-customer-data.types';
-import type { Customer } from '../../../types/customer.types';
+import ApiError from '../../utils/ApiError.js';
+import { CreateCustomerData } from '../../../../types/create-customer-data.types';
+import type { Customer } from '../../../../types/customer.types';
 
 const NOT_FOUND = 404;
 

@@ -1,23 +1,24 @@
-import swaggerJsDoc from 'swagger-jsdoc';
+import path from "node:path";
+import swaggerJSDoc from "swagger-jsdoc";
 
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Customer API',
-      version: '1.0.0',
-      description: 'Customer Management API'
-    },
-    servers: [
-      {
-        url: 'http://localhost:5000/api/v1'
-      }
-    ],
-  },
-  // Look for .ts files in development and .js in production
-  apis: ['./src/routes/*.ts', './dist/routes/*.js']
+const swaggerDefinition = {
+openapi: '3.0.0',
+info: {
+title: 'My API',
+version: '1.0.0',
+description: 'My API Description',
+},
 };
 
-const swaggerSpec = swaggerJsDoc(options);
+const options = {
+swaggerDefinition,
+servers: [
+    { url: 'http://localhost:5000/api/v1', description: 'Local' },
+    { url: 'https://customer-api-jcx2.onrender.com', description: 'Production' }
+  ],
+apis: [path.join(process.cwd(), 'src/**/*.ts')],
+};
+
+const swaggerSpec = swaggerJSDoc(options);
 
 export default swaggerSpec;
