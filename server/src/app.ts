@@ -7,18 +7,26 @@ import swaggerSpec from './config/swagger';
 import helmet from 'helmet';
 import cors from 'cors';
 import { limiter } from './config/rate-limiter';
+import { ALLOWED_ORIGINS } from './config';
 
 const app = express();
 
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true
+  })
+);
 app.use(express.json());
 app.use(helmet());
 app.use(limiter);
-app.use(
-    cors({
-        origin: process.env.ORIGIN,
-        credentials: true
-    })
-);
 app.use(requestLogger);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/v1', customerRoutes);
