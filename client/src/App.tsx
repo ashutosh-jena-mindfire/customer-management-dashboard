@@ -1,4 +1,4 @@
-import { Container, Typography, CircularProgress } from '@mui/material';
+import { Container, Typography, CircularProgress, Box } from '@mui/material';
 import CustomerForm from './components/CustomerForm';
 import CustomerTable from './components/CustomerTable';
 import { useCustomers } from './hooks/useCustomers';
@@ -13,12 +13,34 @@ function App() {
     adding
   } = useCustomers();
 
-  if (isLoading) return <CircularProgress />;
-  if (isError) return <Typography>Error loading customers</Typography>;
+  // 💡 Centered loading state
+  if (isLoading) {
+    return (
+      <Box sx={{ 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '50vh',
+        }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  // 💡 Styled error message
+  if (isError) {
+    return (
+      <Container maxWidth="md" sx={{ mt: 4 }}>
+        <Typography color="error" variant="h6">
+          Error loading customers. Please try again later.
+        </Typography>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
         Customer Dashboard
       </Typography>
 

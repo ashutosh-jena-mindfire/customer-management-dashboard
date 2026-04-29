@@ -1,18 +1,24 @@
 import { useState } from 'react';
 import { TextField, Button, Stack, Paper, Typography } from '@mui/material';
 
-const CustomerForm = ({ onSubmit }) => {
+// Added a type interface for props
+interface CustomerFormProps {
+  onSubmit: (data: { name: string; email: string; phone: string }) => void;
+  loading: boolean;
+}
+
+const CustomerForm = ({ onSubmit, loading }: CustomerFormProps) => {
   const [form, setForm] = useState({
     name: '',
     email: '',
-    phone: ''
+    phone: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
     setForm({ name: '', email: '', phone: '' });
@@ -34,16 +40,15 @@ const CustomerForm = ({ onSubmit }) => {
             fullWidth
             required
           />
-
           <TextField
             label="Email"
             name="email"
+            type="email" // 💡 Changed type to email for basic browser validation
             value={form.email}
             onChange={handleChange}
             fullWidth
             required
           />
-
           <TextField
             label="Phone Number"
             name="phone"
@@ -52,10 +57,9 @@ const CustomerForm = ({ onSubmit }) => {
             fullWidth
             required
           />
-
           <Button variant="contained" type="submit" disabled={loading}>
-			{loading ? 'Adding...' : 'Add Customer'}
-		  </Button>
+            {loading ? 'Adding...' : 'Add Customer'}
+          </Button>
         </Stack>
       </form>
     </Paper>

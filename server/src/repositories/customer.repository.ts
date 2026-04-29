@@ -1,4 +1,4 @@
-import { Customer } from "../types/customer.types";
+import { Customer } from "../../../types/customer.types";
 
 const customers: Customer[] = [];
 

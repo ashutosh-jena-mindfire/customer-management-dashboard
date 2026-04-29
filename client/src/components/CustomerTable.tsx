@@ -11,9 +11,23 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const CustomerTable = ({ customers, onDelete }) => {
+// 1. Defined Customer interface
+interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+// 2. Defined Props interface
+interface CustomerTableProps {
+  customers: Customer[];
+  onDelete: (id: string) => void;
+}
+
+const CustomerTable = ({ customers, onDelete }: CustomerTableProps) => {
   if (!customers.length) {
-    return <Typography>No customers found</Typography>;
+    return <Typography sx={{ p: 2 }}>No customers found</Typography>;
   }
 
   return (
