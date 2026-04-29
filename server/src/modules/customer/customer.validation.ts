@@ -1,4 +1,4 @@
-import ApiError from '../utils/ApiError.js';
+import ApiError from '../../utils/ApiError';
 import type { Request, Response, NextFunction } from 'express';
 
 const BAD_REQUEST_STATUS = 400;

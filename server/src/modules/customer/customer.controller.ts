@@ -1,5 +1,5 @@
-import * as service from '../services/customer.service';
-import * as response from '../utils/response';
+import * as service from './customer.service';
+import * as response from '../../utils/response';
 import type { Request, Response, NextFunction } from 'express';
 
 export const createCustomer = (req: Request, res: Response, next: NextFunction) => {
@@ -13,11 +13,9 @@ export const createCustomer = (req: Request, res: Response, next: NextFunction) 
 
 export const getCustomers = (_req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log('Fetching customers');
     const data = service.getCustomers();
     response.sendSuccess(res, data);
   } catch (err) {
-    console.log('Fetching customers');
     next(err);
   }
 };
