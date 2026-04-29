@@ -28,14 +28,15 @@ jobs:
     - name: Install dependencies
       run: npm install
       working-directory: ./server
-
-    - name: Run Tests
-      run: npm test
-      working-directory: ./server
       
     - name: Run Build
       run: npm run build
       working-directory: ./server
+      
+    - name: Run Tests
+      run: npm test
+      working-directory: ./server
+      
 
     - name: Trigger Render Deploy
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
