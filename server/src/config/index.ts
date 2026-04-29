@@ -21,15 +21,3 @@ import { env } from 'node:process';
 
 // Provides a fallback port of 5000 if env.PORT is missing
 export const PORT: string = env.PORT || '5000';
-
-const defaultAllowedOrigins = [
-  'http://localhost:5173',
-  'https://customer-management-dashboard-opal.vercel.app'
-];
-
-const configuredOrigins = (env.CORS_ORIGINS || env.ORIGIN || '')
-  .split(',')
-  .map(origin => origin.trim())
-  .filter(Boolean);
-
-export const ALLOWED_ORIGINS = configuredOrigins.length > 0 ? configuredOrigins : defaultAllowedOrigins;
