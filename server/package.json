@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "node src/config/swagger.ts && node esbuild.config.js",
-    "start": "node dist/index.js"
-    
+    "start": "node dist/index.js",
+    "test": "node --import tsx --test \"test/**/*.test.ts\""
   },
   "author": "Ashutosh Jena",
   "license": "ISC",
