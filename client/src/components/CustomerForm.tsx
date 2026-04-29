@@ -1,27 +1,36 @@
-import { useState } from 'react';
 import { TextField, Button, Stack, Paper, Typography } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { customerSchema, type CustomerInput } from '@shared/schemas/customer.schema';
 
 // Added a type interface for props
 interface CustomerFormProps {
-  onSubmit: (data: { name: string; email: string; phone: string }) => void;
+  onSubmit: (data: CustomerInput) => Promise<boolean>;
   loading: boolean;
 }
 
 const CustomerForm = ({ onSubmit, loading }: CustomerFormProps) => {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid }
+  } = useForm<CustomerInput>({
+    resolver: zodResolver(customerSchema),
+    mode: 'onTouched',
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: ''
+    }
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const submitCustomer = async (data: CustomerInput) => {
+    const didAddCustomer = await onSubmit(data);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(form);
-    setForm({ name: '', email: '', phone: '' });
+    if (didAddCustomer) {
+      reset();
+    }
   };
 
   return (
@@ -30,34 +39,35 @@ const CustomerForm = ({ onSubmit, loading }: CustomerFormProps) => {
         Add Customer
       </Typography>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(submitCustomer)} noValidate>
         <Stack spacing={2}>
           <TextField
             label="Name"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
             fullWidth
             required
+            error={Boolean(errors.name)}
+            helperText={errors.name?.message}
+            {...register('name')}
           />
           <TextField
             label="Email"
-            name="email"
-            type="email" // 💡 Changed type to email for basic browser validation
-            value={form.email}
-            onChange={handleChange}
+            type="email"
             fullWidth
             required
+            error={Boolean(errors.email)}
+            helperText={errors.email?.message}
+            {...register('email')}
           />
           <TextField
             label="Phone Number"
-            name="phone"
-            value={form.phone}
-            onChange={handleChange}
             fullWidth
             required
+            type="tel"
+            error={Boolean(errors.phone)}
+            helperText={errors.phone?.message}
+            {...register('phone')}
           />
-          <Button variant="contained" type="submit" disabled={loading}>
+          <Button variant="contained" type="submit" disabled={loading || !isValid}>
             {loading ? 'Adding...' : 'Add Customer'}
           </Button>
         </Stack>
