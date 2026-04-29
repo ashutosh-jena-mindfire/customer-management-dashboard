@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { CustomerInput } from '../../../shared/schemas/customer.schema';
+import type { CustomerInput } from '@shared/schemas/customer.schema';
 
 const API = axios.create({
   baseURL: 'https://customer-api-jcx2.onrender.com/api/v1',

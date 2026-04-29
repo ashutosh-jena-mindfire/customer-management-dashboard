@@ -10,7 +10,7 @@ import {
   deleteCustomer
 } from '../services/customer.api';
 import type { Customer } from '../../../shared/types/customer.types';
-import type { CustomerInput } from '../../../shared/schemas/customer.schema';
+import type { CustomerInput } from '@shared/schemas/customer.schema';
 
 export const useCustomers = () => {
   const queryClient = useQueryClient();

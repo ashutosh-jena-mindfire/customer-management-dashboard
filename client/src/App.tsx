@@ -12,7 +12,7 @@ import type { AlertColor } from '@mui/material';
 import CustomerForm from './components/CustomerForm';
 import CustomerTable from './components/CustomerTable';
 import { useCustomers } from './hooks/useCustomers';
-import type { CustomerInput } from '../../shared/schemas/customer.schema';
+import type { CustomerInput } from '@shared/schemas/customer.schema';
 
 interface SnackbarState {
   open: boolean;
