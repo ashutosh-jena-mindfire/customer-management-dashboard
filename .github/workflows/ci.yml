@@ -30,12 +30,12 @@ jobs:
       working-directory: ./server
       
     - name: Run Tests
-      run: npm test
-      working-directory: ./server
+      run: cd server && npm test
+      working-directory: ./
       
     - name: Run Build
-      run: npm run build
-      working-directory: ./server
+      run: cd server && npm run build
+      working-directory: ./
       
       
 
