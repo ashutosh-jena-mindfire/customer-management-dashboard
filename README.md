@@ -14,7 +14,7 @@ A monorepo application for managing customer data, built with a React + Vite fro
 - API validation and error handling
 - Shared types and schemas across frontend and backend
 - Swagger documentation for the API
-- ESLint and TypeScript support
+- GitHub Actions CI for backend tests and build
 
 ## Getting Started
 
@@ -45,7 +45,7 @@ npm run build
 npm start
 ```
 
-The server compiles TypeScript and starts the Express API.
+The backend compiles TypeScript and starts the Express API.
 
 ## Development Workflow
 
@@ -71,6 +71,18 @@ From `server/`:
 From `shared/`:
 
 - `npm run typecheck` - Run TypeScript type checking for shared files
+
+## CI
+
+The repository includes a GitHub Actions workflow at `.github/workflows/ci.yml` that runs on pushes and pull requests to `master` for changes under `server/**`.
+
+The workflow:
+
+- checks out the repo
+- installs dependencies
+- runs `npm test` in `server/`
+- runs `npm run build` in `server/`
+- triggers a Render deploy hook on successful pushes to `master`
 
 ## Notes
 
