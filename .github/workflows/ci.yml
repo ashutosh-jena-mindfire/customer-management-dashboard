@@ -25,20 +25,17 @@ jobs:
         cache: 'npm'
         cache-dependency-path: server/package.json
 
-    - name: Install server dependencies
+    - name: Install dependencies
       run: npm install
-      working-directory: ./server
-    - name: Install shared dependencies
-      run: npm install
-      working-directory: ./shared
+      working-directory: ./
       
     - name: Run Tests
-      run: cd server && npm test
-      working-directory: ./
+      run: npm test
+      working-directory: ./server
       
     - name: Run Build
-      run: cd server && npm run build
-      working-directory: ./
+      run: npm run build
+      working-directory: ./server
       
       
 

@@ -11,10 +11,7 @@ import { ALLOWED_ORIGINS } from './config';
 
 const app = express();
 
-app.use(cors({
-  origin: ALLOWED_ORIGINS,
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 app.use(helmet());
 app.use(limiter);
