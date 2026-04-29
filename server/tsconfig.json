@@ -16,9 +16,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@shared/*": ["../shared/*"],
+       "@types/*": ["../shared/types/*"]
+    }
   },
-  "include": ["src/**/*", "../types"],
-  "exclude": ["node_modules", "dist", "../types"]
+  "include": ["src/**/*", "../shared/types", "../shared"],
+  "exclude": ["node_modules", "dist", "../shared/types", "../shared"]
 
 }

@@ -11,13 +11,8 @@ import { ALLOWED_ORIGINS } from './config';
 
 const app = express();
 
-const defaultAllowedOrigins = [
-  'http://localhost:5173',
-  'https://customer-management-dashboard-opal.vercel.app'
-]
-
 app.use(cors({
-  origin: defaultAllowedOrigins,
+  origin: ALLOWED_ORIGINS,
   credentials: true
 }));
 app.use(express.json());
